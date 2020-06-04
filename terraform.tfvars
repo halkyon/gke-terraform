@@ -1,4 +1,3 @@
-project_id           = "my-project-123"
-region               = "australia-southeast1"
-gke_location         = "australia-southeast1-a"
-gke_node_preemptible = true
+project_id       = "my-project-123"
+gcp_location     = "australia-southeast1-a"
+node_preemptible = true
