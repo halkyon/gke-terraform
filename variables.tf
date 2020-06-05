@@ -43,9 +43,9 @@ variable "nodes_cidr" {
 }
 
 variable "pods_cidr" {
-  default = "10.2.0.0/14"
+  default = "/14"
 }
 
 variable "services_cidr" {
-  default = "10.3.0.0/20"
+  default = "/20"
 }
