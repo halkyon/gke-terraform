@@ -42,21 +42,8 @@ There is also a [list of Google Cloud regions](https://cloud.google.com/compute/
 
 ## Provisioning
 
-Initialise Terraform:
-
 ```shell
 terraform init
-```
-
-Optional: you can see what's going to be done before anything is actually created:
-
-```shell
-terraform plan
-```
-
-Create the resources:
-
-```shell
 terraform apply
 ```
 
@@ -85,4 +72,4 @@ terraform destroy
 Check out [`google_container_cluster` Terraform docs](https://www.terraform.io/docs/providers/google/r/container_cluster.html) 
 for more details on what GKE parameters can be changed using Terraform.
 
-Another thing to do is to create a NAT gateway for outgoing traffic from private nodes, and configuring firewall rules for node traffic.
+You could also look at using a NAT gateway for outgoing traffic from nodes.
