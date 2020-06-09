@@ -1,4 +1,4 @@
-project_id         = "credible-art-278405"
+project_id         = "my-cluster"
 gcp_location       = "australia-southeast1-a"
 node_type          = "n1-standard-1"
 node_preemptible   = true
