@@ -18,7 +18,7 @@ Ensure the [Google Cloud CLI tools](https://cloud.google.com/sdk/docs/quickstart
 gcloud init
 ```
 
-Once initalised, ensure your account is added to the Application Default Credentials (ADC) so Terraform can access them:
+Once initialised, ensure your account is added to the Application Default Credentials (ADC) so Terraform can access them:
 
 ```shell
 gcloud auth application-default login
