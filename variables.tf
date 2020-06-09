@@ -10,11 +10,11 @@ variable "initial_node_count" {
 }
 
 variable "min_node_count" {
-  default = 2
+  default = 1
 }
 
 variable "max_node_count" {
-  default = 4
+  default = 2
 }
 
 variable "node_type" {
