@@ -1,25 +1,28 @@
-variable "project_id" {
-  description = "GCP project id"
+variable "project_id" {}
+variable "gcp_location" {}
+
+variable "nat_ip_count" {
+  default = 1
 }
 
-variable "gcp_location" {
-  description = "GCP region or zone"
-}
-
-variable "default_node_count" {
+variable "initial_node_count" {
   default = 1
 }
 
 variable "min_node_count" {
-  default = 1
+  default = 2
 }
 
 variable "max_node_count" {
-  default = 2
+  default = 4
 }
 
 variable "node_type" {
   default = "n1-standard-1"
+}
+
+variable "node_preemptible" {
+  default = false
 }
 
 variable "node_disk_type" {
@@ -28,10 +31,6 @@ variable "node_disk_type" {
 
 variable "node_disk_size_gb" {
   default = 100
-}
-
-variable "node_preemptible" {
-  default = false
 }
 
 variable "master_cidr" {

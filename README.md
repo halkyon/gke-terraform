@@ -1,12 +1,14 @@
 # Example GKE cluster using Terraform
 
-This repository showcases using Terraform to provision a new VPC and a GKE cluster with nodes within.
+This repository showcases using Terraform to provision a new network and a GKE cluster with nodes within.
 
-See a [high level overview of the architecture](https://cloud.google.com/kubernetes-engine/docs/concepts/cluster-architecture).
+By default, this will create a highly available cluster using [NAT router](https://cloud.google.com/nat/docs/overview#example-gke) for outgoing traffic from private nodes.
+
+See a [high level overview of the GKE architecture](https://cloud.google.com/kubernetes-engine/docs/concepts/cluster-architecture).
 
 ## Install and configure
 
-Ensure that `kubectl`, `gcloud`, and `terraform` are installed first. This has been tested using Terraform 0.12.
+Ensure that `kubectl`, `gcloud`, and `terraform` are installed first.
 
 ### Initialise Google Cloud CLI
 
@@ -30,15 +32,19 @@ In `terraform.tfvars` set the details according to your Google Cloud account.
 
 `gcp_location` can be set to a region or zone. See [regional or zone specific cluster docs for more information](https://cloud.google.com/kubernetes-engine/docs/concepts/types-of-clusters#availability).
 
-An example `terraform.tfvars` file of using a single zone cluster with [preemptible GKE nodes](https://cloud.google.com/compute/docs/instances/preemptible):
+An example `terraform.tfvars` file of using a single zone cluster with [preemptible nodes](https://cloud.google.com/compute/docs/instances/preemptible):
 
 ```
-project_id      = "my-project-123"
-gcp_location    = "australia-southeast1-a"
-node_preemptible = true
+project_id         = "my-project-123"
+gcp_location       = "australia-southeast1-a"
+node_type          = "n1-standard-1"
+node_preemptible   = true
+initial_node_count = 1
+min_node_count     = 1
+max_node_count     = 2
 ```
 
-There is also a [list of Google Cloud regions](https://cloud.google.com/compute/docs/regions-zones).
+Check out a [list of Google Cloud regions and zones](https://cloud.google.com/compute/docs/regions-zones) for reference.
 
 ## Provisioning
 
@@ -71,5 +77,3 @@ terraform destroy
 
 Check out [`google_container_cluster` Terraform docs](https://www.terraform.io/docs/providers/google/r/container_cluster.html) 
 for more details on what GKE parameters can be changed using Terraform.
-
-You could also look at using a NAT gateway for outgoing traffic from nodes.

@@ -1,3 +1,7 @@
-project_id       = "my-project-123"
-gcp_location     = "australia-southeast1-a"
-node_preemptible = true
+project_id         = "credible-art-278405"
+gcp_location       = "australia-southeast1-a"
+node_type          = "n1-standard-1"
+node_preemptible   = true
+initial_node_count = 1
+min_node_count     = 1
+max_node_count     = 2
