@@ -1,6 +1,9 @@
-project_id         = "my-cluster"
+project_id         = "my-project-123"
 gcp_location       = "australia-southeast1-a"
+name               = "mycluster"
 node_type          = "n1-standard-1"
+node_disk_type     = "pd-standard"
+node_disk_size_gb  = 40
 node_preemptible   = true
 initial_node_count = 1
 min_node_count     = 1

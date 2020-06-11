@@ -14,52 +14,52 @@ locals {
 }
 
 resource "google_compute_network" "network" {
-  name                    = "${var.project_id}-network"
+  name                    = var.name
   auto_create_subnetworks = false
 }
 
-resource "google_compute_subnetwork" "subnet" {
-  name                     = "${var.project_id}-subnet"
+resource "google_compute_subnetwork" "nodes" {
+  name                     = "${var.name}-nodes"
   region                   = local.gcp_region
-  network                  = google_compute_network.network.name
+  network                  = google_compute_network.network.self_link
   ip_cidr_range            = var.nodes_cidr
   private_ip_google_access = true
 }
 
 resource "google_compute_router" "router" {
-  name    = "${var.project_id}-router"
-  region  = google_compute_subnetwork.subnet.region
-  network = google_compute_network.network.id
+  name    = var.name
+  region  = google_compute_subnetwork.nodes.region
+  network = google_compute_network.network.self_link
 }
 
-resource "google_compute_address" "address" {
+resource "google_compute_address" "nat" {
   count  = var.nat_ip_count
-  name   = "${var.project_id}-nat-ip-${count.index}"
-  region = google_compute_subnetwork.subnet.region
+  name   = "${var.name}-nat-${count.index}"
+  region = google_compute_subnetwork.nodes.region
 }
 
 resource "google_compute_router_nat" "nat" {
-  name                               = "${var.project_id}-nat"
+  name                               = var.name
   router                             = google_compute_router.router.name
   region                             = google_compute_router.router.region
   nat_ip_allocate_option             = "MANUAL_ONLY"
-  nat_ips                            = google_compute_address.address[*].self_link
+  nat_ips                            = google_compute_address.nat[*].self_link
   source_subnetwork_ip_ranges_to_nat = "LIST_OF_SUBNETWORKS"
   subnetwork {
-    name                    = google_compute_subnetwork.subnet.id
+    name                    = google_compute_subnetwork.nodes.self_link
     source_ip_ranges_to_nat = ["ALL_IP_RANGES"]
   }
 }
 
-resource "google_container_cluster" "cluster" {
-  name                     = "${var.project_id}-gke"
+resource "google_container_cluster" "primary" {
+  name                     = var.name
   location                 = var.gcp_location
   initial_node_count       = 1
   remove_default_node_pool = true
   enable_shielded_nodes    = true
   min_master_version       = "latest"
-  network                  = google_compute_network.network.name
-  subnetwork               = google_compute_subnetwork.subnet.name
+  network                  = google_compute_network.network.self_link
+  subnetwork               = google_compute_subnetwork.nodes.self_link
   ip_allocation_policy {
     cluster_ipv4_cidr_block  = var.pods_cidr
     services_ipv4_cidr_block = var.services_cidr
@@ -84,9 +84,9 @@ resource "google_container_cluster" "cluster" {
   }
 }
 
-resource "google_container_node_pool" "nodes" {
-  name               = "${google_container_cluster.cluster.name}-node-pool"
-  cluster            = google_container_cluster.cluster.name
+resource "google_container_node_pool" "primary" {
+  name               = "primary"
+  cluster            = google_container_cluster.primary.name
   location           = var.gcp_location
   initial_node_count = var.initial_node_count
   autoscaling {
@@ -121,5 +121,5 @@ output "gcp_location" {
 }
 
 output "gke_cluster_name" {
-  value = google_container_cluster.cluster.name
+  value = google_container_cluster.primary.name
 }

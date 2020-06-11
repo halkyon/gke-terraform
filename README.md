@@ -28,7 +28,7 @@ gcloud auth application-default login
 
 In `terraform.tfvars` set the details according to your Google Cloud account.
 
-`project_id`, and `gcp_location` are required to be set.
+`project_id`, `gcp_location`, and `name` are required to be set.
 
 `gcp_location` can be set to a region or zone. See [regional or zone specific cluster docs for more information](https://cloud.google.com/kubernetes-engine/docs/concepts/types-of-clusters#availability).
 
@@ -37,7 +37,10 @@ An example `terraform.tfvars` file of using a single zone cluster with [preempti
 ```
 project_id         = "my-project-123"
 gcp_location       = "australia-southeast1-a"
+name               = "mycluster"
 node_type          = "n1-standard-1"
+node_disk_type     = "pd-standard"
+node_disk_size_gb  = 40
 node_preemptible   = true
 initial_node_count = 1
 min_node_count     = 1

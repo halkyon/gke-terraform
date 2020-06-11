@@ -1,5 +1,6 @@
 variable "project_id" {}
 variable "gcp_location" {}
+variable "name" {}
 
 variable "nat_ip_count" {
   default = 1
