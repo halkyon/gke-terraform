@@ -1,5 +1,5 @@
 project_id         = "my-project-123"
-gcp_location       = "australia-southeast1-a"
+location           = "australia-southeast1-a"
 name               = "mycluster"
 node_type          = "n1-standard-1"
 node_disk_type     = "pd-standard"

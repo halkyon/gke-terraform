@@ -2,15 +2,15 @@ terraform {
   required_version = ">= 0.12"
 }
 
+locals {
+  location_parts = split("-", var.location)
+  region         = format("%s-%s", local.location_parts[0], local.location_parts[1])
+}
+
 provider "google" {
   version = "~> 3.0"
   project = var.project_id
-  region  = local.gcp_region
-}
-
-locals {
-  gcp_location_parts = split("-", var.gcp_location)
-  gcp_region         = format("%s-%s", local.gcp_location_parts[0], local.gcp_location_parts[1])
+  region  = local.region
 }
 
 resource "google_compute_network" "network" {
@@ -20,7 +20,7 @@ resource "google_compute_network" "network" {
 
 resource "google_compute_subnetwork" "nodes" {
   name                     = "${var.name}-nodes"
-  region                   = local.gcp_region
+  region                   = local.region
   network                  = google_compute_network.network.self_link
   ip_cidr_range            = var.nodes_cidr
   private_ip_google_access = true
@@ -53,7 +53,7 @@ resource "google_compute_router_nat" "nat" {
 
 resource "google_container_cluster" "primary" {
   name                     = var.name
-  location                 = var.gcp_location
+  location                 = var.location
   initial_node_count       = 1
   remove_default_node_pool = true
   enable_shielded_nodes    = true
@@ -87,7 +87,7 @@ resource "google_container_cluster" "primary" {
 resource "google_container_node_pool" "primary" {
   name               = "primary"
   cluster            = google_container_cluster.primary.name
-  location           = var.gcp_location
+  location           = var.location
   initial_node_count = var.initial_node_count
   autoscaling {
     min_node_count = var.min_node_count
@@ -116,8 +116,8 @@ resource "google_container_node_pool" "primary" {
   }
 }
 
-output "gcp_location" {
-  value = var.gcp_location
+output "location" {
+  value = var.location
 }
 
 output "gke_cluster_name" {

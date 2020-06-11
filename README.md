@@ -28,15 +28,15 @@ gcloud auth application-default login
 
 In `terraform.tfvars` set the details according to your Google Cloud account.
 
-`project_id`, `gcp_location`, and `name` are required to be set.
+`project_id`, `location`, and `name` are required to be set.
 
-`gcp_location` can be set to a region or zone. See [regional or zone specific cluster docs for more information](https://cloud.google.com/kubernetes-engine/docs/concepts/types-of-clusters#availability).
+`location` can be set to a region or zone. See [regional or zone specific cluster docs for more information](https://cloud.google.com/kubernetes-engine/docs/concepts/types-of-clusters#availability).
 
 An example `terraform.tfvars` file of using a single zone cluster with [preemptible nodes](https://cloud.google.com/compute/docs/instances/preemptible):
 
 ```
 project_id         = "my-project-123"
-gcp_location       = "australia-southeast1-a"
+location           = "australia-southeast1-a"
 name               = "mycluster"
 node_type          = "n1-standard-1"
 node_disk_type     = "pd-standard"
@@ -58,10 +58,10 @@ terraform apply
 
 ### Configure kubectl
 
-Retrieve the cluster name and location using `terraform show`, then initialise `kubectl` configuration.
+Retrieve the cluster name and location using `terraform show`, then initialise `kubectl` configuration:
 
 ```shell
-gcloud container clusters get-credentials my-cluster --region my-location
+gcloud container clusters get-credentials mycluster --region australia-southeast1-a
 ```
 
 ### Test it works
