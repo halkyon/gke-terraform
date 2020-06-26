@@ -10,9 +10,7 @@ See a [high level overview of the GKE architecture](https://cloud.google.com/kub
 
 Ensure that `kubectl`, `gcloud`, and `terraform` are installed first.
 
-### Initialise Google Cloud CLI
-
-Ensure the [Google Cloud CLI tools](https://cloud.google.com/sdk/docs/quickstarts) are installed and initalised.
+Ensure the [Google Cloud CLI tools](https://cloud.google.com/sdk/docs/quickstarts) are installed and initalised:
 
 ```shell
 gcloud init
@@ -24,7 +22,7 @@ Once initialised, ensure your account is added to the Application Default Creden
 gcloud auth application-default login
 ```
 
-### Setup variables
+## Setup variables
 
 In `terraform.tfvars` set the details according to your Google Cloud account.
 
@@ -56,7 +54,7 @@ terraform init
 terraform apply
 ```
 
-### Configure kubectl
+## Configure kubectl
 
 Retrieve the cluster name and location using `terraform show`, then initialise `kubectl` configuration:
 
@@ -64,7 +62,7 @@ Retrieve the cluster name and location using `terraform show`, then initialise `
 gcloud container clusters get-credentials mycluster --region australia-southeast1-a
 ```
 
-### Test it works
+## Test it works
 
 ```shell
 kubectl get nodes -o wide
