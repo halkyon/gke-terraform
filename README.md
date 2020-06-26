@@ -10,7 +10,7 @@ See a [high level overview of the GKE architecture](https://cloud.google.com/kub
 
 Ensure that `kubectl`, `gcloud`, and `terraform` are installed first.
 
-Ensure the [Google Cloud CLI tools](https://cloud.google.com/sdk/docs/quickstarts) are installed and initalised:
+Ensure the [Google Cloud CLI tools](https://cloud.google.com/sdk/docs/quickstarts) are initalised:
 
 ```shell
 gcloud init
