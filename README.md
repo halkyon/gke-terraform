@@ -2,7 +2,7 @@
 
 This repository showcases using Terraform to provision a new network and a GKE cluster with nodes within.
 
-By default, this will create a highly available cluster using [NAT router](https://cloud.google.com/nat/docs/overview#example-gke) for outgoing traffic from private nodes.
+By default, this will create a highly available cluster using a [NAT gateway](https://cloud.google.com/nat/docs/overview#example-gke) for outgoing traffic from private nodes.
 
 See a [high level overview of the GKE architecture](https://cloud.google.com/kubernetes-engine/docs/concepts/cluster-architecture).
 
