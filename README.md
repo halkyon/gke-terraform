@@ -78,3 +78,7 @@ terraform destroy
 
 Check out [`google_container_cluster` Terraform docs](https://www.terraform.io/docs/providers/google/r/container_cluster.html) 
 for more details on what GKE parameters can be changed using Terraform.
+
+Some other things:
+* [General GKE docs](https://cloud.google.com/kubernetes-engine/docs)
+* [Hardening your cluster's security](https://cloud.google.com/kubernetes-engine/docs/how-to/hardening-your-cluster)
