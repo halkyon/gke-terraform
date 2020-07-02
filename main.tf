@@ -77,9 +77,12 @@ resource "google_container_cluster" "primary" {
     }
   }
   master_authorized_networks_config {
-    cidr_blocks {
-      cidr_block   = "0.0.0.0/0"
-      display_name = "all"
+    dynamic "cidr_blocks" {
+      for_each = var.master_authorized_networks_cidr_blocks
+      content {
+        cidr_block   = cidr_blocks.value.cidr_block
+        display_name = cidr_blocks.value.display_name
+      }
     }
   }
 }
