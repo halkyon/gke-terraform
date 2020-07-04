@@ -21,7 +21,7 @@ variable "nat_ip_count" {
   type        = number
   default     = 1
   description = <<EOF
-Number of NAT IPs to provision. More IP addresses means more source ports can be used.
+Number of NAT IPs to provision.
 See https://cloud.google.com/nat/docs/overview and
 https://cloud.google.com/nat/docs/ports-and-addresses#ports
 EOF
